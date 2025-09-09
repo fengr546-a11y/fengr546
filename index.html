@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>音频加速播放</title>
+    <style>body,html{margin:0;padding:0;width:100%;height:100%;overflow:hidden;background:#000;}</style>
+</head>
+<body>
+    <audio id="myAudio"><source src="audio.mp3" type="audio/mpeg"></audio>
+    <script>
+        var audio = document.getElementById("myAudio");
+        
+        audio.addEventListener('canplay', function() {
+            audio.play();
+            startAcceleratedPlayback();
+        });
+        
+        function startAcceleratedPlayback() {
+            audio.playbackRate = 1;
+            setTimeout(() => { audio.playbackRate = 2; }, 1000);
+            setTimeout(() => { audio.playbackRate = 3; }, 2000);
+            setTimeout(() => { audio.playbackRate = 4; }, 3000);
+            setTimeout(() => { audio.playbackRate = 5; }, 4000);
+        }
+        
+        audio.addEventListener('ended', function() {
+            document.body.innerHTML = '<div style="color:white;text-align:center;padding-top:50%">播放完成</div>';
+            setTimeout(() => { window.close(); }, 2000);
+        });
+        
+        document.addEventListener('WeixinJSBridgeReady', function() {
+            audio.play();
+            startAcceleratedPlayback();
+        });
+    </script>
+</body>
+</html>
